@@ -16,7 +16,7 @@
     <RootNamespace>NuGetGallery</RootNamespace>
     <AssemblyName>NuGetGallery</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <OldToolsVersion>12.0</OldToolsVersion>
     <TargetFrameworkProfile />
@@ -77,6 +77,31 @@
     <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
     <PublishDatabases>false</PublishDatabases>
     <IncludeIisSettings>false</IncludeIisSettings>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="Gallery.SqlServer-Deployment" Order="1">
+          <Destination Path="Data Source=NLBAS037%3bInitial Catalog=NuGetGallery%3bIntegrated Security=True" />
+          <Object Type="DbFullSql" Enabled="True">
+            <PreSource Path="Data Source=NLBAS037%3bInitial Catalog=NuGetGallery%3bIntegrated Security=True" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\Gallery.SqlServer-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+        <ObjectGroup Name="Gallery.SupportRequestSqlServer-Deployment" Order="2">
+          <Destination Path="Data Source=NLBAS037%3bInitial Catalog=SupportRequest%3bIntegrated Security=True" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=NLBAS037%3bInitial Catalog=SupportRequest%3bIntegrated Security=True" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\Gallery.SupportRequestSqlServer-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+        <ObjectGroup Name="Gallery.ValidationSqlServer-Deployment" Order="3">
+          <Destination Path="Data Source=NLBAS037%3bInitial Catalog=Validation%3bIntegrated Security=True" />
+          <Object Type="DbFullSql" Enabled="False">
+            <PreSource Path="Data Source=.\SQLEXPRESS%3bInitial Catalog=Validation%3bIntegrated Security=True" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\Gallery.ValidationSqlServer-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -87,6 +112,31 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
     <PublishDatabases>false</PublishDatabases>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="Gallery.SqlServer-Deployment" Order="1">
+          <Destination Path="" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=.\SQLEXPRESS%3bInitial Catalog=NuGetGallery%3bIntegrated Security=True" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Release\AutoScripts\Gallery.SqlServer-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+        <ObjectGroup Name="Gallery.SupportRequestSqlServer-Deployment" Order="2">
+          <Destination Path="" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=.\SQLEXPRESS%3bInitial Catalog=SupportRequest%3bIntegrated Security=True" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Release\AutoScripts\Gallery.SupportRequestSqlServer-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+        <ObjectGroup Name="Gallery.ValidationSqlServer-Deployment" Order="3">
+          <Destination Path="" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=.\SQLEXPRESS%3bInitial Catalog=Validation%3bIntegrated Security=True" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Release\AutoScripts\Gallery.ValidationSqlServer-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Build.Framework" />
@@ -2334,11 +2384,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>80</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost</IISUrl>
+          <IISUrl>https://localhost/gallery</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
